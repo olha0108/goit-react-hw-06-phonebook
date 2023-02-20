@@ -13,12 +13,11 @@ export const ContactForm = () => {
       number: e.target.number.value,
       id: nanoid(),
     };
-    contacts.forEach(({ name }) => {
-      if (name.toLowerCase() === e.target.name.value.toLowerCase()) {
-        alert(`${name} is already in contacts`);
-        e.target.reset();
-      }
-    });
+    if (contacts.some(e => e.name === newContact.name)) {
+      alert(`${newContact.name} is already in contacts`);
+      e.target.reset();
+      return;
+    }
     dispatch(addContactAction(newContact));
     e.target.reset();
   };
